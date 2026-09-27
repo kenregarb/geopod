@@ -1,0 +1,14 @@
+# OVERRIDE LOKAL SAJA (jangan ikut ke VPS): jalankan paket publish paralel
+# di port 3443 agar tidak bentrok dengan stack live (3433).
+# Dipakai dengan: docker compose -p geopodpub -f podman-compose.yml -f docker-compose.override.yml up -d
+services:
+  geodb:
+    container_name: geopodpub-geodb
+  martin:
+    container_name: geopodpub-martin
+  backend:
+    container_name: geopodpub-backend
+  nginx:
+    container_name: geopodpub-nginx
+    ports: !override
+      - "3443:80"

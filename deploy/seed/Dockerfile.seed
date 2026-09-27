@@ -1,0 +1,11 @@
+# GEOPOD v2 - image ringan untuk seeding (GeoJSON/SHP/DBF + Excel Podes)
+FROM python:3.12-slim
+
+RUN pip install --no-cache-dir --disable-pip-version-check \
+    psycopg2-binary \
+    openpyxl
+
+WORKDIR /app
+COPY seed_geojson.py import_podes_xlsx.py import_admin4.py /app/
+
+ENTRYPOINT ["python"]

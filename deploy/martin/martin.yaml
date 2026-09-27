@@ -1,0 +1,26 @@
+# Martin Tile Server configuration (Geopod v2)
+# Pastikan env DATABASE_URL di-set (podman-compose mengirimkannya).
+# Layer bernama `kelurahan` -> MapLibre sourceLayer: "kelurahan".
+# Batas zoom maksimum 14 (anti-scraping koordinat presisi tinggi).
+
+postgres:
+  connection_string: ${DATABASE_URL:-postgres://geopod:geopod@geodb:5432/geopod_db}
+  default_srid: 4326
+  pool_size: 5
+  auto_publish:
+    tables: false
+    functions: false
+  tables:
+    kelurahan:
+      schema: public
+      table: kelurahan_geom
+      srid: 4326
+      geometry_column: geom
+      minzoom: 0
+      maxzoom: 14
+      extent: 4096
+      buffer: 64
+      clip_geom: true
+      geometry_type: GEOMETRY
+      properties:
+        kode_kelurahan: varchar
